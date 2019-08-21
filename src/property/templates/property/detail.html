@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block title %}{{property_details.name}}{% endblock %}
+
+{% block body %}
+  <section class="probootstrap-slider flexslider2 page-inner">
+    <div class="overlay"></div>
+    <div class="probootstrap-wrap-banner">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+
+            <div class="page-title probootstrap-animate">
+              <div class="probootstrap-breadcrumbs">
+                <a href="/">Home</a><span><a href="{% url 'property:property_list' %}">Property</a>
+                  <a href="{% url 'property:property_detail' property_details.id %}">{{property_details.name}}</a></span>
+              </div>
+              <h1>{{property_details.name}}</h1>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <ul class="slides">
+      <li style="background-image: url(img/slider_1.jpg);"></li>
+      <li style="background-image: url(img/slider_3.jpg);"></li>
+      <li style="background-image: url(img/slider_2.jpg);"></li>
+    </ul>
+  </section>
+  <!-- END: slider  -->
+
+  <section class="probootstrap-section">
+    <div class="container">
+      <div class="row heading">
+      </div>
+      <div class="row">
+        <div class="col-md-12" align='center'>
+          <p><img src="{{property_details.image.url}}" class="img-responsive" alt="Free Bootstrap Template by uicookies.com"></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-14">
+          
+          <p>Price - Rs. {{property_details.price}}</p>
+          <p>Area - {{property_details.area}} m2</p>
+          <p>No. of Bathrooms - {{property_details.bath}}</p>
+          <p>No. of Bedrooms - {{property_details.bed}}</p>
+         <p>No. of Garages - {{property_details.garage}}</p>
+         <p>Posted on - {{property_details.created_on}} UTC</p>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+ <section class="probootstrap-section">
+    <div class="container">
+      <div class="row heading">
+      </div>
+      <div class="row">
+        <h2>Reserve the Poperty</h2>
+      </div>
+      <div class="row">
+        <div class="col-md-14"> 
+          <form action="" method="POST">
+          {% csrf_token %}
+          {% bootstrap_form form %}
+    {% buttons %}
+        <button type="submit" class="btn btn-primary">Reserve</button>
+    {% endbuttons %}
+          </form>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+ {% endblock %}

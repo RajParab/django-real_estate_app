@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Property Listing
+{% endblock %}
+
+
+{% block body %}
+  <section class="probootstrap-slider flexslider2 page-inner">
+    <div class="overlay"></div>
+    <div class="probootstrap-wrap-banner">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+
+            <div class="page-title probootstrap-animate">
+              <div class="probootstrap-breadcrumbs">
+                <a href="#">Home</a><span><a href="{% url 'property:property_list' %}">Properties</a></span>
+              </div>
+              <h1>Properties</h1>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <ul class="slides">
+      <li style="background-image: url(img/slider_1.jpg);"></li>
+      <li style="background-image: url(img/slider_4.jpg);"></li>
+      <li style="background-image: url(img/slider_2.jpg);"></li>
+    </ul>
+  </section>
+  <!-- END: slider  -->
+
+
+
+<section class="probootstrap-section probootstrap-section-lighter">
+    <div class="container">
+      <div class="row">
+        {% for property_name in properties %}
+
+        <div class="col-md-4 col-sm-6">
+          <div class="probootstrap-card probootstrap-listing">
+            <div class="probootstrap-card-media">
+              <img src="{{property_name.image.url}}" class="img-responsive" alt="Free HTML5 Template by uicookies.com">
+              <a href="#" class="probootstrap-love"><i class="icon-heart"></i></a>
+            </div>
+            <div class="probootstrap-card-text">
+              <h2 class="probootstrap-card-heading"><a href="{% url 'property:property_detail' property_name.id %}">{{property_name.name}}</a></h2>
+              <div class="probootstrap-listing-location">
+                <i class="icon-location2"></i> <span>{{property_name.category}}</span>
+              </div>
+              <div class="probootstrap-listing-category for-sale"><span>for {{property_name.types}}</span></div>
+              <div class="probootstrap-listing-price"><strong>Rs {{property_name.price}}</strong>{% if property_name.types == 'Rent' %} / month{% endif %}</div>
+            </div>
+            <div class="probootstrap-card-extra">
+              <ul>
+                <li>
+                  Area
+                  <span>{{property_name.area}} m2</span>
+                </li>
+                <li>
+                  Beds
+                  <span>{{property_name.bed}}</span>
+                </li>
+                <li>
+                  Baths
+                  <span>{{property_name.bath}}</span>
+                </li>
+                <li>
+                  Garages
+                  <span>{{property_name.garage}}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- END listing -->
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  
+
+<section class="probootstrap-section">
+    <div class="container">
+      <div class="row heading">
+        <h2 class="mt0 mb50 text-center">Explore Our Neighborhoods</h2>
+      </div>
+      <div class="row probootstrap-gutter10">
+        {% for category in categories %}
+        <div class="col-md-6 col-sm-6">
+          <a href="#" class="probootstrap-hover-overlay">
+            <img src="{{category.category_image.url}}" alt="Free Bootstrap Template by uicookies.com" class="img-responsive">
+            <div class="probootstrap-text-overlay">
+              <h3>{{category.category_name}}</h3>
+              <p>430 Properties</p>
+            </div>
+          </a>
+
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+</section>
+<!-- END: section -->
+
+{% endblock %}
